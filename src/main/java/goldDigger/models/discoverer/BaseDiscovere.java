@@ -5,21 +5,28 @@ import goldDigger.models.museum.Museum;
 public abstract class BaseDiscovere implements Discoverer{
     private String name;
     private double energy;
+    private Museum
 
-    public BaseDiscovere(String name, double energy) {
+    protected BaseDiscovere(String name, double energy) {
         setName(name);
-        this.energy = energy;
+        setEnergy(energy);
     }
 
     public void setName(String name) {
         if (name==null || name.trim().isEmpty()){
-            throw new IllegalArgumentException
+            throw new NullPointerException
                     ("Discoverer name cannot be null or empty.");
         }
         this.name = name;
     }
 
-
+    public void setEnergy(double energy) {
+        if (energy < 0) {
+            throw new IllegalArgumentException
+                    ("Cannot create Discoverer with negative energy.");
+        }
+        this.energy = energy;
+    }
 
     @Override
     public String getName() {
